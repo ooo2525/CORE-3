@@ -72,9 +72,9 @@ void read_sectors(uint32_t sector_count, uint32_t lba, uint8_t drive, uint8_t *b
         }
 
         asm volatile (
-            "mov dx, 0x1F0"
-            "mov edi, %[buf]"
-            "mov ecx, 256"
+            "mov dx, 0x1F0\n"
+            "mov edi, %[buf]\n"
+            "mov ecx, 256\n"
             "rep insw"
             :
             : [buf] "D"(buffer)
@@ -90,6 +90,7 @@ void write_sectors(uint32_t sector_count, uint32_t lba, uint8_t drive, uint8_t *
     uint8_t lba_mid    = (lba >> 8) & 0xFF;
     uint8_t lba_high   = (lba >> 16) & 0xFF;
     uint8_t drive_head = 0xE0 | (drive << 4) | ((lba >> 24) & 0x0F);
+    uint8_t status;
 
     asm volatile (
         "out dx, al"
@@ -129,9 +130,6 @@ void write_sectors(uint32_t sector_count, uint32_t lba, uint8_t drive, uint8_t *
     );
 
     for (uint32_t sector = 0; sector < sector_count; sector++) {
-
-        uint8_t status;
-
         /* Wait for BSY to clear. */
         do {
             asm volatile (
@@ -157,9 +155,9 @@ void write_sectors(uint32_t sector_count, uint32_t lba, uint8_t drive, uint8_t *
         }
 
         asm volatile (
-            "mov dx, 0x1F0"
-            "mov esi, %[buf]"
-            "mov ecx, 256"
+            "mov dx, 0x1F0\n"
+            "mov esi, %[buf]\n"
+            "mov ecx, 256\n"
             "rep outsw"
             :
             : [buf] "S"(buffer)
