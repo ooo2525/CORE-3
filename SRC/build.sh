@@ -47,6 +47,13 @@ gcc -m32 \
     -c memory.c \
     -o memory.o
 
+gcc -m32 \
+    -ffreestanding \
+    -fno-pie \
+    -masm=intel \
+    -c ata.c \
+    -o ata.o
+
 echo "=== Linking kernel ==="
 
 ld -m elf_i386 \
@@ -59,7 +66,8 @@ ld -m elf_i386 \
     idtasm.o \
     idt.o \
     int0x60.o \
-    memory.o
+    memory.o \
+    ata.o
 
 echo "=== Creating HDD image ==="
 
