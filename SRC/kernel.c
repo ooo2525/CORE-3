@@ -59,6 +59,9 @@ void kmain(void)
         :"ax"
     );
 
+    //read BPB sector into ram at 0x500
+    read_sectors(1, 0, 0, (void *)0x500);
+
     //debug print if everyhting still wokrs
     printc("works", 0x0F);
 
