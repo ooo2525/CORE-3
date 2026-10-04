@@ -62,6 +62,28 @@ void kmain(void)
     //read BPB sector into ram at 0x500
     read_sectors(1, 0, 0, (void *)0x500);
 
+    //get pointers i need from the bpb
+    uint8_t *bpb = (uint8_t *)0x500;
+
+    uint16_t *bytes_per_sector = (uint16_t *)(bpb + 0x0B);
+    uint8_t  *sectors_per_cluster = (uint8_t *)(bpb + 0x0D);
+    uint16_t *reserved_sectors = (uint16_t *)(bpb + 0x0E);
+    uint8_t  *fat_count = (uint8_t *)(bpb + 0x10);
+    uint16_t *root_entries = (uint16_t *)(bpb + 0x11);
+    uint16_t *sectors_per_fat = (uint16_t *)(bpb + 0x16);
+    uint16_t *total_sectors_16 = (uint16_t *)(bpb + 0x13);
+    uint32_t *total_sectors_32 = (uint32_t *)(bpb + 0x20);
+
+    uint32_t total_sectors
+    if (*total_sectors_16 != 0)
+    {
+        total_sectors = *total_sectors_16;
+    }
+    else
+    {
+        total_sectors = *total_sectors_32;
+    }
+
     //debug print if everyhting still wokrs
     printc("works", 0x0F);
 
