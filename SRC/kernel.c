@@ -1,5 +1,6 @@
 #include "vga.h"
 #include "memory.h"
+#include "ata.h"
 
 //main file
 extern volatile unsigned char key;
