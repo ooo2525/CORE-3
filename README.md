@@ -9,7 +9,8 @@ Current features:
 - ATA PIO
 - VGA text mode
 - PS/2 Keyboard interrupt handling
-- Basic memory management.
+- Basic memory management
+- FAT 16 support in progress
 
 Planned features:
 - FAT 16 filesystem
